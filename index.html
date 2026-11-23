@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator Akademik</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #eaf0f8;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #244b85;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #244b85;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        #hasil {
+            display: none;
+            background: #eaf0ff;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Kalkulator Akademik</h2>
+
+    <label>Nilai Tugas (20%)</label>
+    <input type="number" id="tugas" min="0" max="100">
+
+    <label>Nilai Kuis (20%)</label>
+    <input type="number" id="kuis" min="0" max="100">
+
+    <label>Nilai Kehadiran (20%)</label>
+    <input type="number" id="hadir" min="0" max="100">
+
+    <label>Nilai UTS (20%)</label>
+    <input type="number" id="uts" min="0" max="100">
+
+    <label>Nilai UAS (20%)</label>
+    <input type="number" id="uas" min="0" max="100">
+
+    <button onclick="hitungNilai()">
+        HITUNG NILAI
+    </button>
+
+    <div id="hasil">
+        <h3>Hasil Akademik</h3>
+
+        <p>Nilai Akhir: <b id="akhir"></b></p>
+        <p>Grade: <b id="grade"></b></p>
+        <p>Nilai Mutu: <b id="mutu"></b></p>
+        <p>Status: <b id="status"></b></p>
+    </div>
+
+</div>
+
+<script>
+
+function hitungNilai() {
+
+    let tugas = document.getElementById("tugas").value;
+    let kuis = document.getElementById("kuis").value;
+    let hadir = document.getElementById("hadir").value;
+    let uts = document.getElementById("uts").value;
+    let uas = document.getElementById("uas").value;
+
+    let nilai = [tugas, kuis, hadir, uts, uas];
+
+    if (nilai.some(n => n === "" || Number(n) < 0 || Number(n) > 100)) {
+        alert("Masukkan semua nilai antara 0 sampai 100!");
+        return;
+    }
+
+    let akhir =
+        (Number(tugas) * 0.20) +
+        (Number(kuis) * 0.20) +
+        (Number(hadir) * 0.20) +
+        (Number(uts) * 0.20) +
+        (Number(uas) * 0.20);
+
+    let grade;
+    let mutu;
+
+    if (akhir >= 85) {
+        grade = "A";
+        mutu = 4.00;
+    } else if (akhir >= 80) {
+        grade = "A-";
+        mutu = 3.70;
+    } else if (akhir >= 75) {
+        grade = "B+";
+        mutu = 3.30;
+    } else if (akhir >= 70) {
+        grade = "B";
+        mutu = 3.00;
+    } else if (akhir >= 65) {
+        grade = "C+";
+        mutu = 2.70;
+    } else if (akhir >= 60) {
+        grade = "C";
+        mutu = 2.00;
+    } else if (akhir >= 50) {
+        grade = "D";
+        mutu = 1.00;
+    } else {
+        grade = "E";
+        mutu = 0.00;
+    }
+
+    document.getElementById("akhir").innerText =
+        akhir.toFixed(2);
+
+    document.getElementById("grade").innerText = grade;
+
+    document.getElementById("mutu").innerText =
+        mutu.toFixed(2);
+
+    document.getElementById("status").innerText =
+        grade === "E" ? "Tidak Lulus" : "Lulus";
+
+    document.getElementById("hasil").style.display = "block";
+}
+
+</script>
+
+</body>
+</html>
