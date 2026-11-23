@@ -1,7 +1,0 @@
-{
-	"baseUrl": "https://animate-cdn.adobe.com/an/assets/2021/updates/",
-	"updates": [
-		{ "name": "deleteOldFarmer.json" }
-	],
-	"version": "1"
-}
